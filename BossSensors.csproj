@@ -7,9 +7,6 @@
 	<PropertyGroup>
 		
 	</PropertyGroup>
-	<ItemGroup>
-	  <None Remove="Content\BossAlive\BossAliveSensorItem.png" />
-	</ItemGroup>
 
 	<!-- References -->
 
