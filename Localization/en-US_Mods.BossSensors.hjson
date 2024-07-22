@@ -1,1 +1,9 @@
-
+Items: {
+	BossAliveSensorItem: {
+		DisplayName: Boss Alive Sensor Item
+		Tooltip: ""
+	}
+}
+MapObject: {
+	BossAliveSensor: Boss Alive Sensor
+}
