@@ -1,9 +1,9 @@
 Items: {
 	BossAliveSensorItem: {
-		DisplayName: Boss Alive Sensor Item
-		Tooltip: ""
+		DisplayName: Logic Sensor (Alive)
+		Tooltip: "Activates whenever an entity is alive, deactives otherwise. Can be configured"
 	}
 }
 MapObject: {
-	BossAliveSensor: Boss Alive Sensor
+	BossAliveSensor: Alive Sensor
 }
