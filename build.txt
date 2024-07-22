@@ -1,0 +1,3 @@
+displayName = Boss Sensors
+author = Noved &amp; Nov
+version = 0.1
