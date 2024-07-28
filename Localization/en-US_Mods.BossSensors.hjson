@@ -1,9 +1,16 @@
 Items: {
-	BossAliveSensorItem: {
+	AliveSensorItem: {
 		DisplayName: Logic Sensor (Alive)
-		Tooltip: "Activates whenever an entity is alive, deactives otherwise. Can be configured"
+		Tooltip: Activates whenever an entity is alive, deactives otherwise. Can be configured
+	}
+
+	SpawnerItem: {
+		DisplayName: Spawner
+		Tooltip: ""
 	}
 }
+
 MapObject: {
+	Spawner: Spawner
 	BossAliveSensor: Alive Sensor
 }

@@ -1,0 +1,52 @@
+﻿#nullable disable
+using BossSensors.UI;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+
+namespace BossSensors.Content.AliveSensor
+{
+    internal class AliveSensorUI : UIState
+    {
+        private AliveSensorTileEntity _tileEntity;
+        private UIPanelTextbox _npcInput;
+        private UIPanel panel;
+        public override void OnInitialize()
+        {
+            Left.Pixels = 200;
+            Top.Pixels = 200;
+            BasicUIBuilder builder = new();
+            builder.Container.Width.Pixels = 500;
+            builder.Container.Height.Pixels = 200;
+            Append(builder.Container);
+            panel = builder.Container;
+
+            _npcInput = builder.AddNpcSelect();
+            _npcInput.TextField.OnTextChange += (_, _) =>
+            {
+                _tileEntity.NpcName = _npcInput.CurrentString;
+            };
+            builder.NextRow();
+            builder.AddCloseButton();
+        }
+
+        public bool SetTileEntity(AliveSensorTileEntity tileEntity)
+        {
+            bool changed = _tileEntity != tileEntity;
+            _tileEntity = tileEntity;
+            _npcInput.CurrentString = tileEntity.NpcName;
+            return changed;
+        }
+
+
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            base.DrawSelf(spriteBatch);
+            if (panel.ContainsPoint(Main.MouseScreen))
+            {
+                Main.LocalPlayer.mouseInterface = true;
+            }
+        }
+    }
+}
