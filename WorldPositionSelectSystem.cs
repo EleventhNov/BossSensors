@@ -1,6 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace BossSensors
 {
@@ -26,6 +31,27 @@ namespace BossSensors
             {
                 callback(mouseWorld);
                 _callback = null;
+                SelectionEffect(mouseWorld);
+            }
+        }
+
+        public void SelectionEffect(Vector2 position)
+        {
+            SoundEngine.PlaySound(SoundID.Item4, position);
+            for (int i = 0; i < 8; i++)
+            {
+                float speedX = MathF.Sin(i * MathHelper.TwoPi * 0.125f);
+                float speedY = MathF.Cos(i * MathHelper.TwoPi * 0.125f);
+
+                Dust.NewDust(position, 4, 4, DustID.AmberBolt, speedX, speedY);
+            }
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            if(_callback is not null)
+            {
+                Main.LocalPlayer.mouseInterface = true;
             }
         }
     }
