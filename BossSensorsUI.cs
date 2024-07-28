@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BossSensors.Content.AliveSensor;
+using BossSensors.Content.DeathSensor;
 using BossSensors.Content.Spawner;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -14,6 +15,7 @@ namespace BossSensors
         internal UserInterface? UserInterface;
         internal SpawnerUI? SpawnerUI;
         internal AliveSensorUI? AliveSensorUI;
+        internal DeathSensorUI? DeathSensorUI;
 
         public void ShowSpawnerUI(SpawnerTileEntity spawner)
         {
@@ -30,6 +32,14 @@ namespace BossSensors
             UserInterface?.SetState(close ? null : AliveSensorUI);
         }
 
+        public void ShowDeathSensorUI(DeathSensorTileEntity deathSensor)
+        {
+            Load();
+            bool close = UserInterface?.CurrentState == DeathSensorUI;
+            if (DeathSensorUI?.SetTileEntity(deathSensor) == true) close = false;
+            UserInterface?.SetState(close ? null : DeathSensorUI);
+        }
+
         public void HideUI()
         {
             UserInterface?.SetState(null);
@@ -42,6 +52,8 @@ namespace BossSensors
             SpawnerUI.Activate();
             AliveSensorUI = new AliveSensorUI();
             AliveSensorUI.Activate();
+            DeathSensorUI = new DeathSensorUI();
+            DeathSensorUI.Activate();
         }
 
         public override void UpdateUI(GameTime gameTime)
