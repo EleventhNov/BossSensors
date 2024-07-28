@@ -33,7 +33,7 @@ namespace BossSensors.Content.Spawner
 
             TileObjectData.addTile(Type);
 
-            AddMapEntry(new Color(40, 40, 255), Language.GetText("MapObject.Spawner"));
+            AddMapEntry(new Color(40, 40, 255), CreateMapEntryName());
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)

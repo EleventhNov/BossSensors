@@ -29,7 +29,7 @@ namespace BossSensors.Content.AliveSensor
 
             TileObjectData.addTile(Type);
 
-            AddMapEntry(new Color(80, 60, 60), Language.GetText("MapObject.AliveSensor"));
+            AddMapEntry(new Color(80, 60, 60), CreateMapEntryName());
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)

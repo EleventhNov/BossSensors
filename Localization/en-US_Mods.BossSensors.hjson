@@ -3,14 +3,20 @@ Items: {
 		DisplayName: Logic Sensor (Alive)
 		Tooltip: Activates whenever an entity is alive, deactives otherwise. Can be configured
 	}
+	
+	DeathSensorItem: {
+		DisplayName: Logic Sensor (Death)
+		Tooltip: Activates when an entity dies. Can be configured
+	}
 
 	SpawnerItem: {
 		DisplayName: Spawner
-		Tooltip: ""
+		Tooltip: Spawns entities when powered via wire. Can be configured
 	}
 }
 
-MapObject: {
-	Spawner: Spawner
-	BossAliveSensor: Alive Sensor
+Tiles: {
+	DeathSensorTile.MapEntry: Death Sensor
+	SpawnerTile.MapEntry: Spawner
+	AliveSensorTile.MapEntry: Alive Sensor
 }
