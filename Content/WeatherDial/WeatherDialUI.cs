@@ -1,0 +1,100 @@
+﻿#nullable disable
+using System;
+using BossSensors.UI;
+using Microsoft.Xna.Framework;
+using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+using Terraria.Utilities.Terraria.Utilities;
+
+namespace BossSensors.Content.WeatherDial
+{
+    internal class WeatherDialUI : UIState
+    {
+        private WeatherDialTileEntity _tileEntity;
+        private BasicUIBuilder builder;
+        private UIPanelTextbox windSpeed;
+        private UIPanelTextbox rainSpeed;
+        private UIOptionSelect windOptions;
+        private UIOptionSelect rainOptions;
+
+        private static readonly string[] weatherPatternOptions = 
+            [
+            "Do not modify",
+            "Allow changing speed",
+            "Freeze at this speed",
+            ];
+
+        public override void OnInitialize()
+        {
+            builder = new(this);
+
+            windSpeed = AddMaybeFloatTextbox("Wind speed", target => _tileEntity.WindTarget = target, -0.8f, 0.8f);
+            builder.NextRow();
+
+            windOptions = AddWeatherPatternSelect(freeze => _tileEntity.FreezeWind = freeze);
+            builder.NextRow();
+
+            rainSpeed = AddMaybeFloatTextbox("Rain speed", target => _tileEntity.RainTarget = target, 0, 1);
+            builder.NextRow();
+
+            rainOptions = AddWeatherPatternSelect(freeze => _tileEntity.FreezeRain = freeze);
+            builder.NextRow();
+
+            builder.AddButton("Activate").OnLeftClick += (_, _) => _tileEntity.HitSignal();
+            builder.AddCloseButton();
+            builder.NextRow();
+
+            builder.Finish();
+        }
+
+        public bool SetTileEntity(WeatherDialTileEntity tileEntity)
+        {
+            bool different = _tileEntity != tileEntity;
+            _tileEntity = tileEntity;
+            windSpeed.CurrentString = tileEntity.WindTarget?.ToString() ?? string.Empty;
+            rainSpeed.CurrentString = tileEntity.RainTarget?.ToString() ?? string.Empty;
+            windOptions.OptionIndex = (int)tileEntity.FreezeWind;
+            rainOptions.OptionIndex = (int)tileEntity.FreezeRain;
+            return different;
+        }
+
+        private UIPanelTextbox AddMaybeFloatTextbox(string hintText, Action<float?> setValue, float minValue, float maxValue)
+        {
+            UIPanelTextbox textbox = builder?.AddTextbox(hintText);
+            textbox.Width.Pixels = 250;
+
+            textbox.TextField.OnTextChange += (_, _) =>
+            {
+                if(textbox.TextField.CurrentString == string.Empty)
+                {
+                    setValue(null);
+                    return;
+                }
+
+                if (float.TryParse(textbox.TextField.CurrentString, out float value))
+                {
+                    if (value >= minValue && value <= maxValue)
+                    {
+                        textbox.TextField.TextColor = Color.White;
+                        setValue(value);
+                        return;
+                    }
+                }
+                
+                textbox.TextField.TextColor = Color.Red;
+            };
+
+            return textbox;
+        }
+
+        private UIOptionSelect AddWeatherPatternSelect(Action<WeatherDialFreezingMode> setValue)
+        {
+            UIOptionSelect options = new(weatherPatternOptions);
+            options.Width.Pixels = 250;
+            options.Height.Pixels = 40;
+            builder?.AddToCurrentRow(options);
+            options.OnOptionChange += (_, value) => setValue((WeatherDialFreezingMode)value);
+            return options;
+        }
+    }
+}

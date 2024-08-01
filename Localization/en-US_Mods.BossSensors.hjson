@@ -3,7 +3,7 @@ Items: {
 		DisplayName: Logic Sensor (Alive)
 		Tooltip: Activates whenever an entity is alive, deactives otherwise. Can be configured
 	}
-	
+
 	DeathSensorItem: {
 		DisplayName: Logic Sensor (Death)
 		Tooltip: Activates when an entity dies. Can be configured
@@ -13,10 +13,16 @@ Items: {
 		DisplayName: Spawner
 		Tooltip: Spawns entities when powered via wire. Can be configured
 	}
+
+	WeatherDial: {
+		DisplayName: Weather Dial
+		Tooltip: ""
+	}
 }
 
 Tiles: {
 	DeathSensorTile.MapEntry: Death Sensor
 	SpawnerTile.MapEntry: Spawner
 	AliveSensorTile.MapEntry: Alive Sensor
+	WeatherDialTile.MapEntry: Weather Dial Tile
 }

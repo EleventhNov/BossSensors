@@ -33,14 +33,10 @@ namespace BossSensors.Content.Spawner
 
         public override void OnInitialize()
         {
-            Left.Set(300, 0);
-            Top.Set(300, 0);
-
-            BasicUIBuilder builder = new();
+            BasicUIBuilder builder = new(this);
             panel = builder.Container;
             panel.Width.Set(500, 0);
             panel.Height.Set(300, 0);
-            Append(panel);
 
             inputX = builder.AddTextbox("Placeholder X", width: 140);
             ValidateIntTextbox(inputX, x => _tileEntity.State.SpawnX = x);

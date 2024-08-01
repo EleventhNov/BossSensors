@@ -14,12 +14,9 @@ namespace BossSensors.Content.AliveSensor
         private UIPanel panel;
         public override void OnInitialize()
         {
-            Left.Pixels = 200;
-            Top.Pixels = 200;
-            BasicUIBuilder builder = new();
+            BasicUIBuilder builder = new(this);
             builder.Container.Width.Pixels = 500;
             builder.Container.Height.Pixels = 200;
-            Append(builder.Container);
             panel = builder.Container;
 
             _npcInput = builder.AddNpcSelect();

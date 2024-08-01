@@ -2,6 +2,7 @@
 using BossSensors.Content.AliveSensor;
 using BossSensors.Content.DeathSensor;
 using BossSensors.Content.Spawner;
+using BossSensors.Content.WeatherDial;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -16,6 +17,7 @@ namespace BossSensors
         internal SpawnerUI? SpawnerUI;
         internal AliveSensorUI? AliveSensorUI;
         internal DeathSensorUI? DeathSensorUI;
+        internal WeatherDialUI? WeatherDialUI;
 
         public void ShowSpawnerUI(SpawnerTileEntity spawner)
         {
@@ -40,6 +42,14 @@ namespace BossSensors
             UserInterface?.SetState(close ? null : DeathSensorUI);
         }
 
+        public void ShowWeatherDialUI(WeatherDialTileEntity weatherDial)
+        {
+            Load();
+            bool close = UserInterface?.CurrentState == WeatherDialUI;
+            if (WeatherDialUI?.SetTileEntity(weatherDial) == true) close = false;
+            UserInterface?.SetState(close ? null : WeatherDialUI);
+        }
+
         public void HideUI()
         {
             UserInterface?.SetState(null);
@@ -54,6 +64,8 @@ namespace BossSensors
             AliveSensorUI.Activate();
             DeathSensorUI = new DeathSensorUI();
             DeathSensorUI.Activate();
+            WeatherDialUI = new WeatherDialUI();
+            WeatherDialUI.Activate();
         }
 
         public override void UpdateUI(GameTime gameTime)

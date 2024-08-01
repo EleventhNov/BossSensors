@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using System;
+using Humanizer;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -12,24 +13,43 @@ namespace BossSensors.UI
     internal class BasicUIBuilder
     {
         public UIPanel Container = new();
-        public float RowStart = 0;
+        private bool firstElement = true;
+        public float RowPadding = 0;
         public float RowElementSpacing = 15;
         public float ColumnSize = 35;
         public float ColumnSpacing = 15;
+        private float maxRowWidth = 0;
         public Vector2 Cursor = new(0, 0);
+
+        public BasicUIBuilder(UIState state)
+        {
+            state.Left.Pixels = 300;
+            state.Top.Pixels = 300;
+            state.Append(Container);
+        }
 
         public void NextRow()
         {
-            Cursor.X = RowStart;
+            Cursor.X = RowPadding;
             Cursor.Y += ColumnSize + ColumnSpacing;
+            firstElement = true;
+        }
+
+        public void Finish()
+        {
+            Container.Width.Pixels = maxRowWidth + RowPadding;
+            Container.Height.Pixels = Cursor.Y + ColumnSpacing;
         }
 
         public void AddToCurrentRow(UIElement element)
         {
+            if (!firstElement) Cursor.X += RowElementSpacing;
             element.Left.Set(Cursor.X, 0);
             element.Top.Set(Cursor.Y, 0);
-            Cursor.X += element.Width.Pixels + RowElementSpacing;
+            Cursor.X += element.Width.Pixels;
             Container.Append(element);
+            firstElement = false;
+            maxRowWidth = MathF.Max(maxRowWidth, Cursor.X);
         }
 
         public void AddCloseButton()
