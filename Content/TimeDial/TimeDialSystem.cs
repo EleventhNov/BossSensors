@@ -20,7 +20,7 @@ namespace BossSensors.Content.TimeDial
 
         public override void LoadWorldData(TagCompound tag)
         {
-            tag.TryGet("FrozenTimeToSet", out FrozenTimeToSet);
+            FrozenTimeToSet = tag.Get<float?>("FrozenTimeToSet");
         }
 
         public void SetTime(float time)
