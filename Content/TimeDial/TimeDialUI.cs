@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#nullable disable
+using System;
 using BossSensors.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -11,7 +8,7 @@ using Terraria.UI;
 
 namespace BossSensors.Content.TimeDial
 {
-    internal class TimeDialUI : UIState
+    internal class TimeDialUI : UIState, IStateable<TimeDialTileEntity>
     {
         private TimeDialTileEntity _tileEntity;
         private UISlider slider;
@@ -40,7 +37,7 @@ namespace BossSensors.Content.TimeDial
             var activate = builder.AddButton("Activate");
             activate.OnLeftClick += (_, _) => _tileEntity.HitSignal();
             builder.AddCloseButton();
-            builder.NextRow();
+
             slider.OnChangeValue += (_, value) =>
             {
                 value = MathF.Round(value * 48) / 48;
@@ -50,13 +47,11 @@ namespace BossSensors.Content.TimeDial
             builder.Finish();
         }
 
-        public bool SetTileEntity(TimeDialTileEntity tileEntity)
+        public void SetState(TimeDialTileEntity tileEntity)
         {
-            bool different = _tileEntity != tileEntity;
             _tileEntity = tileEntity;
             slider.Value = _tileEntity.TimeToSet;
             selectFreeze.OptionIndex = _tileEntity.FreezeTime.ToInt();
-            return different;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)

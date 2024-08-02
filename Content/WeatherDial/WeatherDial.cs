@@ -28,7 +28,7 @@ namespace BossSensors.Content.WeatherDial
 
         public override bool RightClick(int i, int j)
         {
-            ModContent.GetInstance<BossSensorsUI>().ShowWeatherDialUI(TileUtils.GetTileEntity<WeatherDialTileEntity>(i, j));
+            BossSensorsUI.ShowTileEntityUI<WeatherDialUI, WeatherDialTileEntity>(i, j);
             return true;
         }
     }

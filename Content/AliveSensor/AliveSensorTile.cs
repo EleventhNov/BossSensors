@@ -39,7 +39,7 @@ namespace BossSensors.Content.AliveSensor
 
         public override bool RightClick(int i, int j)
         {
-            ModContent.GetInstance<BossSensorsUI>().ShowAliveSensorUI(TileUtils.GetTileEntity<AliveSensorTileEntity>(i, j));
+            BossSensorsUI.ShowTileEntityUI<AliveSensorUI, AliveSensorTileEntity>(i, j);
             return true;
         }
     }

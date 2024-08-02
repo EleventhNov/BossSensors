@@ -8,7 +8,7 @@ using Terraria.Utilities.Terraria.Utilities;
 
 namespace BossSensors.Content.WeatherDial
 {
-    internal class WeatherDialUI : UIState
+    internal class WeatherDialUI : UIState, IStateable<WeatherDialTileEntity>
     {
         private WeatherDialTileEntity _tileEntity;
         private BasicUIBuilder builder;
@@ -42,20 +42,17 @@ namespace BossSensors.Content.WeatherDial
 
             builder.AddButton("Activate").OnLeftClick += (_, _) => _tileEntity.HitSignal();
             builder.AddCloseButton();
-            builder.NextRow();
 
             builder.Finish();
         }
 
-        public bool SetTileEntity(WeatherDialTileEntity tileEntity)
+        public void SetState(WeatherDialTileEntity tileEntity)
         {
-            bool different = _tileEntity != tileEntity;
             _tileEntity = tileEntity;
             windSpeed.CurrentString = tileEntity.WindTarget?.ToString() ?? string.Empty;
             rainSpeed.CurrentString = tileEntity.RainTarget?.ToString() ?? string.Empty;
             windOptions.OptionIndex = (int)tileEntity.FreezeWind;
             rainOptions.OptionIndex = (int)tileEntity.FreezeRain;
-            return different;
         }
 
         private UIPanelTextbox AddMaybeFloatTextbox(string hintText, Action<float?> valueHandler, float minValue, float maxValue)

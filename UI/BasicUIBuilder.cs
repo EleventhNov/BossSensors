@@ -16,9 +16,9 @@ namespace BossSensors.UI
         private bool firstElement = true;
         public float RowPadding = 0;
         public float RowElementSpacing = 15;
-        public float ColumnSize = 35;
         public float ColumnSpacing = 15;
         private float maxRowWidth = 0;
+        private float maxCurRowHeight = 0;
         public Vector2 Cursor = new(0, 0);
 
         public BasicUIBuilder(UIState state)
@@ -31,13 +31,15 @@ namespace BossSensors.UI
         public void NextRow()
         {
             Cursor.X = RowPadding;
-            Cursor.Y += ColumnSize + ColumnSpacing;
+            Cursor.Y += maxCurRowHeight + ColumnSpacing;
             firstElement = true;
+            maxCurRowHeight = 0;
         }
 
         public void Finish()
         {
-            Container.Width.Pixels = maxRowWidth + RowPadding;
+            NextRow();
+            Container.Width.Pixels = maxRowWidth + Container.PaddingLeft + Container.PaddingRight;
             Container.Height.Pixels = Cursor.Y + ColumnSpacing;
         }
 
@@ -50,6 +52,7 @@ namespace BossSensors.UI
             Container.Append(element);
             firstElement = false;
             maxRowWidth = MathF.Max(maxRowWidth, Cursor.X);
+            maxCurRowHeight = MathF.Max(maxCurRowHeight, element.Height.Pixels);
         }
 
         public void AddCloseButton()

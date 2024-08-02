@@ -1,4 +1,5 @@
 ﻿using BossSensors.Content.AliveSensor;
+using BossSensors.Content.WeatherDial;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -43,7 +44,7 @@ namespace BossSensors.Content.Spawner
 
         public override bool RightClick(int i, int j)
         {
-            ModContent.GetInstance<BossSensorsUI>().ShowSpawnerUI(TileUtils.GetTileEntity<SpawnerTileEntity>(i, j));
+            BossSensorsUI.ShowTileEntityUI<SpawnerUI, SpawnerTileEntity>(i, j);
             return true;
         }
 

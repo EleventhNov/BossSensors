@@ -7,7 +7,7 @@ using Terraria.UI;
 
 namespace BossSensors.Content.DeathSensor
 {
-    internal class DeathSensorUI : UIState
+    internal class DeathSensorUI : UIState, IStateable<DeathSensorTileEntity>
     {
         private DeathSensorTileEntity _tileEntity;
         private UIPanelTextbox _npcInput;
@@ -15,8 +15,6 @@ namespace BossSensors.Content.DeathSensor
         public override void OnInitialize()
         {
             BasicUIBuilder builder = new(this);
-            builder.Container.Width.Pixels = 500;
-            builder.Container.Height.Pixels = 200;
             panel = builder.Container;
 
             _npcInput = builder.AddNpcSelect();
@@ -24,16 +22,16 @@ namespace BossSensors.Content.DeathSensor
             {
                 _tileEntity.NpcName = _npcInput.CurrentString;
             };
+
             builder.NextRow();
             builder.AddCloseButton();
+            builder.Finish();
         }
 
-        public bool SetTileEntity(DeathSensorTileEntity tileEntity)
+        public void SetState(DeathSensorTileEntity tileEntity)
         {
-            bool changed = _tileEntity != tileEntity;
             _tileEntity = tileEntity;
             _npcInput.CurrentString = tileEntity.NpcName;
-            return changed;
         }
 
 

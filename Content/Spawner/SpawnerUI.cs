@@ -15,7 +15,7 @@ using Terraria.UI;
 
 namespace BossSensors.Content.Spawner
 {
-    internal class SpawnerUI : UIState
+    internal class SpawnerUI : UIState, IStateable<SpawnerTileEntity>
     {
         private SpawnerTileEntity _tileEntity;
         private UIPanel panel;
@@ -23,7 +23,7 @@ namespace BossSensors.Content.Spawner
         private UIPanelTextbox inputY;
         private UIPanelTextbox inputNpc;
 
-        public void SetTileEntity(SpawnerTileEntity tileEntity)
+        public void SetState(SpawnerTileEntity tileEntity)
         {
             _tileEntity = tileEntity;
             inputNpc.CurrentString = tileEntity.State.NpcName;
@@ -35,8 +35,6 @@ namespace BossSensors.Content.Spawner
         {
             BasicUIBuilder builder = new(this);
             panel = builder.Container;
-            panel.Width.Set(500, 0);
-            panel.Height.Set(300, 0);
 
             inputX = builder.AddTextbox("Placeholder X", width: 140);
             TextboxValidation.ValidateTextFieldInt(inputX.TextField, x => _tileEntity.State.SpawnX = x);
@@ -60,6 +58,8 @@ namespace BossSensors.Content.Spawner
 
             var spawnButton = builder.AddButton("Spawn");
             builder.AddCloseButton();
+
+            builder.Finish();
 
             spawnButton.OnLeftClick += (_, _) =>
             {

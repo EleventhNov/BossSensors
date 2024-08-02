@@ -39,7 +39,7 @@ namespace BossSensors.Content.DeathSensor
 
         public override bool RightClick(int i, int j)
         {
-            ModContent.GetInstance<BossSensorsUI>().ShowDeathSensorUI(TileUtils.GetTileEntity<DeathSensorTileEntity>(i, j));
+            BossSensorsUI.ShowTileEntityUI<DeathSensorUI, DeathSensorTileEntity>(i, j);
             return true;
         }
     }

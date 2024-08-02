@@ -16,7 +16,7 @@ namespace BossSensors.Content.SpawnDial
 
         public override bool RightClick(int i, int j)
         {
-            ModContent.GetInstance<BossSensorsUI>().ShowUI<SpawnDialUI, SpawnDialTileEntity>(TileUtils.GetTileEntity<SpawnDialTileEntity>(i, j));
+            BossSensorsUI.ShowTileEntityUI<SpawnDialUI, SpawnDialTileEntity>(i, j);
             return true;
         }
     }

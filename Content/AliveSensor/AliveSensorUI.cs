@@ -7,16 +7,15 @@ using Terraria.UI;
 
 namespace BossSensors.Content.AliveSensor
 {
-    internal class AliveSensorUI : UIState
+    internal class AliveSensorUI : UIState, IStateable<AliveSensorTileEntity>
     {
         private AliveSensorTileEntity _tileEntity;
         private UIPanelTextbox _npcInput;
         private UIPanel panel;
+
         public override void OnInitialize()
         {
             BasicUIBuilder builder = new(this);
-            builder.Container.Width.Pixels = 500;
-            builder.Container.Height.Pixels = 200;
             panel = builder.Container;
 
             _npcInput = builder.AddNpcSelect();
@@ -26,14 +25,13 @@ namespace BossSensors.Content.AliveSensor
             };
             builder.NextRow();
             builder.AddCloseButton();
+            builder.Finish();
         }
 
-        public bool SetTileEntity(AliveSensorTileEntity tileEntity)
+        public void SetState(AliveSensorTileEntity tileEntity)
         {
-            bool changed = _tileEntity != tileEntity;
             _tileEntity = tileEntity;
             _npcInput.CurrentString = tileEntity.NpcName;
-            return changed;
         }
 
 

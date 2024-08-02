@@ -2,6 +2,7 @@
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using BossSensors.Content.WeatherDial;
 
 namespace BossSensors.Content.TimeDial
 {
@@ -27,7 +28,7 @@ namespace BossSensors.Content.TimeDial
 
         public override bool RightClick(int i, int j)
         {
-            ModContent.GetInstance<BossSensorsUI>().ShowTimeDialUI(TileUtils.GetTileEntity<TimeDialTileEntity>(i, j));
+            BossSensorsUI.ShowTileEntityUI<TimeDialUI, TimeDialTileEntity>(i, j);
             return true;
         }
     }

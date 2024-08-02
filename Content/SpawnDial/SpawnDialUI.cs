@@ -38,7 +38,6 @@ namespace BossSensors.Content.SpawnDial
             builder.AddButton("Activate").OnLeftClick += (_, _) => _tileEntity.HitSignal();
             builder.AddCloseButton();
 
-            builder.NextRow();
             builder.Finish();
         }
 
