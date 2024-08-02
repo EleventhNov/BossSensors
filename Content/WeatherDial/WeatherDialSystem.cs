@@ -6,7 +6,6 @@ namespace BossSensors.Content.WeatherDial
 {
     internal class WeatherDialSystem : ModSystem
     {
-        // TODO these values dont save!
         public float? FrozenWindTarget;
         public float? FrozenRainTarget;
 
