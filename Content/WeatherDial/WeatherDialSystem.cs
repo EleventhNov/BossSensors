@@ -49,8 +49,8 @@ namespace BossSensors.Content.WeatherDial
 
         public override void LoadWorldData(TagCompound tag)
         {
-            tag.TryGet("FrozenWindTarget", out FrozenWindTarget);
-            tag.TryGet("FrozenRainTarget", out FrozenRainTarget);
+            FrozenWindTarget = tag.Get<float?>("FrozenWindTarget");
+            FrozenRainTarget = tag.Get<float?>("FrozenRainTarget");
         }
     }
 }

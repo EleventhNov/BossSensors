@@ -1,5 +1,4 @@
-﻿using BossSensors.Content.Spawner;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;

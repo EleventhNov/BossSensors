@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace BossSensors.Content.Spawner;
+namespace BossSensors.Content;
 
 internal abstract class CommonTileEntity : ModTileEntity
 {

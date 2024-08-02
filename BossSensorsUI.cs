@@ -21,6 +21,31 @@ namespace BossSensors
         internal WeatherDialUI? WeatherDialUI;
         internal TimeDialUI? TimeDialUI;
 
+        internal UIState currentState;
+        internal object currentStateObject;
+        internal record UIAndStateObject(UIState uiState, object stateObject);
+
+        public void ShowUI<T, S>(S stateObject) where T: UIState, IStateable<S>, new()
+        {
+            bool close = currentState?.GetType() == typeof(T);
+            if (currentStateObject != stateObject as object) close = false;
+
+            if(close)
+            {
+                currentState = null;
+                currentStateObject = null;
+                UserInterface?.SetState(null);
+            }
+            else
+            {
+                currentState = new T();
+                currentState.Activate();
+                currentStateObject = stateObject;
+                ((IStateable<S>)currentState).SetState(stateObject);
+                UserInterface?.SetState(currentState);
+            }
+        }
+
         public void ShowSpawnerUI(SpawnerTileEntity spawner)
         {
             Load();

@@ -42,6 +42,7 @@ namespace BossSensors.Content.Spawner
             ValidateIntTextbox(inputX, x => _tileEntity.State.SpawnX = x);
             inputY = builder.AddTextbox("Placeholder Y", width: 140);
             ValidateIntTextbox(inputY, y => _tileEntity.State.SpawnY = y);
+
             var selectPositionButton = builder.AddButton("Select Position", width: 160);
             selectPositionButton.OnLeftClick += (s, e) =>
             {

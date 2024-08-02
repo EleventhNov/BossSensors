@@ -23,6 +23,11 @@ Items: {
 		DisplayName: Time Dial
 		Tooltip: ""
 	}
+
+	SpawnDialItem: {
+		DisplayName: Spawn Dial Item
+		Tooltip: ""
+	}
 }
 
 Tiles: {
@@ -31,4 +36,5 @@ Tiles: {
 	AliveSensorTile.MapEntry: Alive Sensor
 	WeatherDialTile.MapEntry: Weather Dial Tile
 	TimeDialTile.MapEntry: Time Dial Tile
+	SpawnDialTile.MapEntry: Spawn Dial Tile
 }
