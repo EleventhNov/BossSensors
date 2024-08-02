@@ -39,9 +39,9 @@ namespace BossSensors.Content.Spawner
             panel.Height.Set(300, 0);
 
             inputX = builder.AddTextbox("Placeholder X", width: 140);
-            ValidateIntTextbox(inputX, x => _tileEntity.State.SpawnX = x);
+            TextboxValidation.ValidateTextFieldInt(inputX.TextField, x => _tileEntity.State.SpawnX = x);
             inputY = builder.AddTextbox("Placeholder Y", width: 140);
-            ValidateIntTextbox(inputY, y => _tileEntity.State.SpawnY = y);
+            TextboxValidation.ValidateTextFieldInt(inputY.TextField, y => _tileEntity.State.SpawnY = y);
 
             var selectPositionButton = builder.AddButton("Select Position", width: 160);
             selectPositionButton.OnLeftClick += (s, e) =>
@@ -55,9 +55,8 @@ namespace BossSensors.Content.Spawner
 
             builder.NextRow();
             inputNpc = builder.AddNpcSelect();
-            ValidateNpcTextbox(inputNpc, npc => _tileEntity.State.NpcName = npc);
+            TextboxValidation.ValidateTextFieldNpc(inputNpc.TextField, npc => _tileEntity.State.NpcName = npc);
             builder.NextRow();
-            //inputNpc.OnTextChange += (s, e) => { }
 
             var spawnButton = builder.AddButton("Spawn");
             builder.AddCloseButton();
@@ -65,37 +64,6 @@ namespace BossSensors.Content.Spawner
             spawnButton.OnLeftClick += (_, _) =>
             {
                 _tileEntity?.Spawn();
-            };
-        }
-
-        private void ValidateNpcTextbox(UIPanelTextbox textbox, Action<string> handler)
-        {
-            textbox.TextField.OnTextChange += (_, _) =>
-            {
-                if(NPCID.Search.TryGetId(textbox.TextField.CurrentString, out int _))
-                {
-                    textbox.TextField.TextColor = Color.White;
-                    handler(textbox.TextField.CurrentString);
-                }
-                else
-                {
-                    textbox.TextField.TextColor = Color.Red;
-                }
-            };
-        }
-        private void ValidateIntTextbox(UIPanelTextbox textbox, Action<int> valueHandler)
-        {
-            textbox.TextField.OnTextChange += (_, _) =>
-            {
-                if(int.TryParse(textbox.TextField.CurrentString, out int value))
-                {
-                    textbox.TextField.TextColor = Color.White;
-                    valueHandler(value);
-                }
-                else
-                {
-                    textbox.TextField.TextColor = Color.Red;
-                }
             };
         }
 

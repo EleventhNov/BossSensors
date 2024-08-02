@@ -58,32 +58,11 @@ namespace BossSensors.Content.WeatherDial
             return different;
         }
 
-        private UIPanelTextbox AddMaybeFloatTextbox(string hintText, Action<float?> setValue, float minValue, float maxValue)
+        private UIPanelTextbox AddMaybeFloatTextbox(string hintText, Action<float?> valueHandler, float minValue, float maxValue)
         {
             UIPanelTextbox textbox = builder?.AddTextbox(hintText);
             textbox.Width.Pixels = 250;
-
-            textbox.TextField.OnTextChange += (_, _) =>
-            {
-                if(textbox.TextField.CurrentString == string.Empty)
-                {
-                    setValue(null);
-                    return;
-                }
-
-                if (float.TryParse(textbox.TextField.CurrentString, out float value))
-                {
-                    if (value >= minValue && value <= maxValue)
-                    {
-                        textbox.TextField.TextColor = Color.White;
-                        setValue(value);
-                        return;
-                    }
-                }
-                
-                textbox.TextField.TextColor = Color.Red;
-            };
-
+            TextboxValidation.ValidateTextFieldOptionalFloat(textbox.TextField, valueHandler, minValue, maxValue);
             return textbox;
         }
 
